@@ -26,7 +26,7 @@ jobs:
           const fs = require("fs");
           const axios = require("axios");
 
-          const sites = JSON.parse(fs.readFileSync("sites.json", "utf8"));
+          const sites = JSON.parse(fs.readFileSync("docs/sites.json", "utf8"));
           const now = new Date().toISOString();
 
           Promise.all(sites.map(async site => {
@@ -37,7 +37,7 @@ jobs:
               return { ...site, status: "down", timestamp: now };
             }
           })).then(results => {
-            fs.writeFileSync("status.json", JSON.stringify(results, null, 2));
+            fs.writeFileSync("docs/status.json", JSON.stringify(results, null, 2));
           });
           '
 
@@ -45,6 +45,6 @@ jobs:
         run: |
           git config user.name "uptime-bot"
           git config user.email "bot@example.com"
-          git add status.json
+          git add docs/status.json
           git commit -m "Update status [bot]" || echo "No changes"
           git push
