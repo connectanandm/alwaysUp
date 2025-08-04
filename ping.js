@@ -6,7 +6,7 @@ const results = [];
 
 async function pingSite(site) {
   const MAX_RETRIES = 3;
-  const TIMEOUT = 10000; // 10 seconds
+  const TIMEOUT = 15000; // ⏱️ Increased to 15 seconds
 
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
