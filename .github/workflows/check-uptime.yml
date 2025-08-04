@@ -1,59 +1,50 @@
-# ✅ Trigger GitHub to re-register the cron job
-
 name: Check Uptime
 
 on:
   schedule:
-    - cron: "* * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
-
-
-permissions:
-  contents: write
 
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 18
 
-      - name: Install axios
+      - name: Install dependencies
         run: npm install axios
 
-      - name: Check site uptime and write status
+      - name: Check site uptime
         run: |
-          node -e "
-            const fs = require('fs');
-            const axios = require('axios');
+          node -e '
+          const fs = require("fs");
+          const axios = require("axios");
 
-            const sites = JSON.parse(fs.readFileSync('docs/sites.json', 'utf8'));
-            const now = new Date().toISOString();
+          const sites = JSON.parse(fs.readFileSync("docs/sites.json", "utf8"));
+          const now = new Date().toISOString();
 
-            Promise.all(sites.map(async site => {
-              try {
-                await axios.get(site.url, { timeout: 10000 });
-                return { ...site, status: 'up', timestamp: now };
-              } catch {
-                return { ...site, status: 'down', timestamp: now };
-              }
-            })).then(results => {
-              fs.writeFileSync('docs/status.json', JSON.stringify(results, null, 2));
-            }).catch(err => {
-              console.error('Unexpected error:', err);
-              process.exit(1);
-            });
-          "
+          Promise.all(sites.map(async site => {
+            try {
+              await axios.get(site.url, { timeout: 10000 });
+              return { ...site, status: "up", timestamp: now };
+            } catch {
+              return { ...site, status: "down", timestamp: now };
+            }
+          })).then(results => {
+            fs.writeFileSync("docs/status.json", JSON.stringify(results, null, 2));
+          });
+          '
 
-      - name: Commit and Push changes
+      - name: Commit and Push
         run: |
           git config user.name "uptime-bot"
           git config user.email "bot@example.com"
           git add docs/status.json
-          git commit -m "Update status [bot]" || echo "No changes to commit"
+          git commit -m "Update status [bot]" || echo "No changes"
           git push
