@@ -5,17 +5,20 @@ on:
     - cron: "*/5 * * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Install axios
         run: npm install axios
@@ -49,5 +52,5 @@ jobs:
           git config user.name "uptime-bot"
           git config user.email "bot@example.com"
           git add docs/status.json
-          git diff --cached --quiet || git commit -m "Update status [bot]"
+          git commit -m "Update status [bot]" || echo "No changes to commit"
           git push
