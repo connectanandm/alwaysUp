@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write   # ✅ Required for pushing changes
+  contents: write
 
 jobs:
   check:
@@ -22,6 +22,9 @@ jobs:
 
       - name: Install axios
         run: npm install axios
+
+      - name: Ping Render sites
+        run: node ping.js
 
       - name: Check site uptime
         run: |
