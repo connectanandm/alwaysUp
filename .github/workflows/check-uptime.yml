@@ -2,7 +2,7 @@ name: Check Uptime
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/5 * * * *"  # Every 5 minutes
   workflow_dispatch:
 
 permissions:
@@ -44,13 +44,16 @@ jobs:
             });
           '
 
+      - name: Update last checked timestamp
+        run: |
+          echo "Last checked: $(date -u +"%Y-%m-%dT%H:%M:%SZ")" > docs/last-checked.txt
+
       - name: Commit and Push
         run: |
           git config user.name "uptime-bot"
           git config user.email "bot@example.com"
-          git add docs/status.json
+          git add docs/status.json docs/last-checked.txt
           git diff --cached --quiet && echo "No changes to commit" || (
             git commit -m "Update status [bot]"
             git push
           )
-
