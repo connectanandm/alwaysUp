@@ -1,8 +1,10 @@
+# ✅ Trigger GitHub to re-register the cron job
+
 name: Check Uptime
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/5 * * * *"  # Every 5 minutes
   workflow_dispatch:
 
 permissions:
