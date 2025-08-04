@@ -5,6 +5,9 @@ on:
     - cron: "*/5 * * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write   # ✅ Required for pushing changes
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -17,28 +20,28 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: Install axios
         run: npm install axios
 
       - name: Check site uptime
         run: |
           node -e '
-          const fs = require("fs");
-          const axios = require("axios");
+            const fs = require("fs");
+            const axios = require("axios");
 
-          const sites = JSON.parse(fs.readFileSync("docs/sites.json", "utf8"));
-          const now = new Date().toISOString();
+            const sites = JSON.parse(fs.readFileSync("docs/sites.json", "utf8"));
+            const now = new Date().toISOString();
 
-          Promise.all(sites.map(async site => {
-            try {
-              await axios.get(site.url, { timeout: 10000 });
-              return { ...site, status: "up", timestamp: now };
-            } catch {
-              return { ...site, status: "down", timestamp: now };
-            }
-          })).then(results => {
-            fs.writeFileSync("docs/status.json", JSON.stringify(results, null, 2));
-          });
+            Promise.all(sites.map(async site => {
+              try {
+                await axios.get(site.url, { timeout: 10000 });
+                return { ...site, status: "up", timestamp: now };
+              } catch {
+                return { ...site, status: "down", timestamp: now };
+              }
+            })).then(results => {
+              fs.writeFileSync("docs/status.json", JSON.stringify(results, null, 2));
+            });
           '
 
       - name: Commit and Push
