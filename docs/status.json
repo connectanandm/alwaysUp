@@ -3,18 +3,18 @@
     "name": "FormCollect",
     "url": "https://formcollect.onrender.com",
     "status": "up",
-    "timestamp": "2025-08-08T07:54:25.672Z"
+    "timestamp": "2025-08-08T08:25:35.513Z"
   },
   {
     "name": "Your Other App",
     "url": "https://your-other-app.onrender.com",
     "status": "down",
-    "timestamp": "2025-08-08T07:54:25.672Z"
+    "timestamp": "2025-08-08T08:25:35.513Z"
   },
   {
     "name": "urlCollect",
     "url": "https://urlcollect.onrender.com",
-    "status": "up",
-    "timestamp": "2025-08-08T07:54:25.672Z"
+    "status": "down",
+    "timestamp": "2025-08-08T08:25:35.513Z"
   }
 ]
