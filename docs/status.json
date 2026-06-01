@@ -2,25 +2,25 @@
   {
     "name": "FormCollect",
     "url": "https://formcollect.onrender.com",
-    "status": "down",
-    "timestamp": "2026-05-31T23:17:25.041Z"
+    "status": "up",
+    "timestamp": "2026-06-01T01:37:00.915Z"
   },
   {
     "name": "Live Pad",
     "url": "https://vam-2442.onrender.com",
-    "status": "down",
-    "timestamp": "2026-05-31T23:17:25.041Z"
+    "status": "up",
+    "timestamp": "2026-06-01T01:37:00.915Z"
   },
   {
     "name": "urlCollect",
     "url": "https://urlcollect.onrender.com",
-    "status": "down",
-    "timestamp": "2026-05-31T23:17:25.041Z"
+    "status": "up",
+    "timestamp": "2026-06-01T01:37:00.915Z"
   },
   {
     "name": "Your Other App",
     "url": "https://your-other-app.onrender.com",
     "status": "down",
-    "timestamp": "2026-05-31T23:17:25.041Z"
+    "timestamp": "2026-06-01T01:37:00.915Z"
   }
 ]
